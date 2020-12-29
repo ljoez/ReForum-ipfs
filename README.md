@@ -1,17 +1,4 @@
-<!--
-**ReForum-ipfs/ReForum-ipfs** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
 
 ![logo](./docs/design_assets/logo.png)
 
@@ -69,7 +56,7 @@ Please make sure you have following software installed in your system:
 
 First we need to clone the repository:
 ```
-$ git clone https://github.com/shoumma/ReForum
+$ git clone https://github.com/ReForum-ipfs/ReForum-ipfs
 ```
 
 Then we have to install the necessary dependencies using either NPM or Yarn:
@@ -90,6 +77,12 @@ We need to provide all the information here. You can notice that we need the dat
 ```
 mongodb://localhost:27017/reforum
 ```
+Then, we need to configure the env file of the codebase.Open the file 'frontend/env.js' add the necessary server information.The file looks like this:
+
+export default {
+    url:'http://localhost:8080'    
+}
+You need to replace the server dns domain or ip addr of 'localhost'.
 
 Now we are ready to run the application. You can run either run the development environment of the application which will include Hot-Reload for JS codes using Webpack and the Redux dev tool extension, or you can run the production edition. The default port for developer edition is `8080`, and for production is `process.env.PORT`.
 
@@ -115,5 +108,4 @@ Congratulation! You now have a clone of this application in your server. :-)
 
 
 ## Path for Future Work
-* Add hash of json filename whose length is limited in filesystem.
-* Add common login by username and password.
+Welcome everyone to commit your opinon.This is a open 
