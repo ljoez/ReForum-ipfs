@@ -107,6 +107,64 @@ const signInViaGithub = (gitProfile) => {
   });
 };
 
+
+/**
+ * sign in/up user via github provided info
+ * this will signin the user if user existed
+ * or will create a new user using git infos
+ * @param  {Object} gitProfile    profile information provided by github
+ * @return {promise}              user doc
+ */
+const signInViaLocal = (username,password) => {
+  return new Promise((resolve, reject) => {
+
+    // find if user exist on db
+    User.findOne({ username: username}, (error, user) => {
+      if (error) { console.log(error); reject(error); }
+      else {
+        // get the email from emails array of gitProfile
+        // const email = _.find(gitProfile.emails, { verified: true }).value;
+
+        // user existed on db
+        if (user) {
+          if (user.password == password){
+          // update the user with latest git profile info
+            resolve(user);
+          }else{
+            reject("password is incorrect");
+          }
+          // save the info and resolve the user doc
+        }
+
+        // user doesn't exists on db
+        else {
+          // check if it is the first user (adam/eve) :-p
+          // assign him/her as the admin
+          User.count({}, (err, count) => {
+            console.log('usercount: ' + count);
+
+            let assignAdmin = false;
+            if (count === 0) assignAdmin = true;
+
+            // create a new user
+            const newUser = new User({
+              username: username,
+              password: password
+            });
+
+            // save the user and resolve the user doc
+            newUser.save((error) => {
+              if (error) { console.log(error); reject(error); }
+              else { resolve(newUser); }
+            });
+
+          });
+        }
+      }
+    });
+
+  });
+};
 /**
  * get the full profile of a user
  * @param  {String} username
@@ -158,4 +216,5 @@ module.exports = {
   signInViaGithub,
   getUser,
   getFullProfile,
+  signInViaLocal,
 };

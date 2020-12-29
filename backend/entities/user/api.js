@@ -18,6 +18,13 @@ const userAPI = (app) => {
     passport.authenticate('github')
   );
 
+  app.post(
+    // this should match callback url of github app
+    '/api/user/signIn',
+    passport.authenticate('local', { failureRedirect: '/signIn/failed' }),
+    (req, res) => { res.redirect('/'); }
+  );
+
   // callback route from github
   app.get(
     // this should match callback url of github app

@@ -29,9 +29,9 @@ class DiscussionBox extends Component {
 
         { !userProfile && <div className={styles.posterInfo}>
           <Link to={`/user/${userGitHandler}`} className={styles.name}>{userName}</Link>
-          <a target="_blank" href={`https://www.github.com/${userGitHandler}`} className={styles.gitHandler}>
+          {/* <a target="_blank" href={`https://www.github.com/${userGitHandler}`} className={styles.gitHandler}>
             - <i className={classnames('fa fa-github-alt', styles.gitIcon)}></i> {userGitHandler}
-          </a>
+          </a> */}
         </div> }
 
         <div className={styles.boxFooter}>

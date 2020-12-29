@@ -61,7 +61,7 @@ class AppContainer extends Component {
           <Helmet><title> </title></Helmet>
 
           <div className={styles.gitForkTag}>
-            <a className={styles.gitLink} href="https://github.com/shoumma/ReForum" target="_blank">Fork on Github</a>
+            <a className={styles.gitLink} href="https://github.com/ReForum-ipfs/ReForum-ipfs" target="_blank">Fork on Github</a>
           </div>
 
           <Header />

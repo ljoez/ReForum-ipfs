@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
+const schedule = require('./schedule');
 
 /**
  * express configuration
@@ -56,6 +57,7 @@ const expressConfig = (app, serverConfigs) => {
 
   // apply route configs
   require('./routes')(app);
+  schedule();
 };
 
 module.exports = expressConfig;

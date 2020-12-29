@@ -44,14 +44,14 @@ class Discussion extends Component {
       <div className={styles.container}>
 
         <div className={styles.infoContainer}>
-          <img className={styles.avatar} src={userAvatar} />
+          {/* <img className={styles.avatar} src={userAvatar} /> */}
           <div className={styles.columnOnSmallBP}>
             <div className={styles.userInfo}>
               <Link to={`/user/${userGitHandler}`} className={styles.name}>{userName || userGitHandler}</Link>
-              <a href={`https://www.github.com/${userGitHandler}`} target="_blank" className={styles.gitHandler}>
+              {/* <a href={`https://www.github.com/${userGitHandler}`} target="_blank" className={styles.gitHandler}>
                 <i className={classnames('fa fa-github-alt', styles.gitIcon)}></i>
                 <span>{userGitHandler}</span>
-              </a>
+              </a> */}
             </div>
             <div className={styles.dateInfo}>{dateDisplay}</div>
           </div>

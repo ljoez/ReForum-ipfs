@@ -14,12 +14,12 @@ class Profile extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.avatarContainer}>
-          <img className={styles.avatar} src={avatarUrl} alt={`${name} avatar`} />
+          {/* <img className={styles.avatar} src={avatarUrl} alt={`${name} avatar`} /> */}
         </div>
         <div className={styles.infoContainer}>
           <div className={styles.name}>{ name }</div>
-          <div className={styles.gitHandler}><i className={classnames('fa fa-github-alt', styles.gitIcon)}></i> { gitHandler }</div>
-          <div className={styles.location}>{ location }</div>
+          {/* <div className={styles.gitHandler}><i className={classnames('fa fa-github-alt', styles.gitIcon)}></i> { gitHandler }</div>
+          <div className={styles.location}>{ location }</div> */}
         </div>
       </div>
     );

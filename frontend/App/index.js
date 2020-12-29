@@ -18,6 +18,7 @@ import NewDiscussion from '../Views/NewDiscussion';
 import UserProfile from '../Views/UserProfile';
 import NotFound from '../Views/NotFound';
 
+
 ReactDOM.render (
   <Provider store={appStore}>
     <Router history={hashHistory}>

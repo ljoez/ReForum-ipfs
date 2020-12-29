@@ -42,7 +42,7 @@ const findForumId = (state, forum) => {
  * @param  {Boolean} sortingChanged      if user chagned the sorting method
  * @return {thunk}
  */
-export const getDiscussions = (forumId, feedChanged=false, sortingChanged=false) => {
+export const getDiscussions = (forumId, feedChanged=false, sortingChanged=false,pageNum=1) => {
   return (dispatch, getState) => {
     const sortingMethod = getState().feed.sortingMethod;
 
@@ -57,13 +57,13 @@ export const getDiscussions = (forumId, feedChanged=false, sortingChanged=false)
       var networkStatus = getState().networkStatus;
       if (networkStatus.networkStatus==true){
         // start fetching discussions
-        fetchDiscussions(forumId, sortingMethod).then(
+        fetchDiscussions(forumId, sortingMethod,pageNum).then(
           data => dispatch({ type: FETCHING_DISCUSSIONS_SUCCESS, payload: data.data }),
           error => dispatch({ type: FETCHING_DISCUSSIONS_FAILURE })
         );
       }else{
         
-        fetchDiscussionsIpfs(forumId, sortingMethod).then(
+        fetchDiscussionsIpfs(forumId, sortingMethod,pageNum).then(
           data => dispatch({ type: FETCHING_DISCUSSIONS_SUCCESS, payload: data.data }),
           error => dispatch({ type: FETCHING_DISCUSSIONS_FAILURE })
         );

@@ -3,6 +3,7 @@ import axios from 'axios';
 import Base32 from '../../util/base32.js'
 
 import env from '../../env.js';
+const keccak256 = require('keccak256');
 /**
  * single discussion apis
  */
@@ -12,8 +13,8 @@ export const fetchSingleDiscussion = (discussion_slug) => {
 
 export const fetchSingleDiscussionIpfs = (discussion_slug) => {
   let forumTable = JSON.stringify({url:`/api/discussion/${discussion_slug}`});
-  let base32Code = Base32.encode(forumTable);
-  return axios.get(base32Code+".json");
+  let hashCode = keccak256(forumTable).toString('hex');
+  return axios.get(hashCode+".json");
 };
 
 export const toggleFavoriteApi = (discussion_id) => {

@@ -1,36 +1,5 @@
-<!--
-**ReForum-ipfs/ReForum-ipfs** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
-
 ![logo](./docs/design_assets/logo.png)
 
-
-## This is a web3 forum based on ipfs.
-You can visit this forum by any ipfs gateway (like ipfs.io,hub.textile.io), or installing ipfs application.  
-You can regeister,login, post topics,reply discussions in this forum.   
-If you are in network restict area,though you cannot send any message,but you can browser discussions which are updated in one minute.  
-This is a new form of future forum.  
-## I have explored some convenient standards in this web3 based on ipfs.
-* first,front and back system must be separate.  
-* second,back system need generate json file which can be uploaded by ipfs,and visited by front page.  
-* third,these json files' name should be uploaded in a standard method: I use base32 form of string like "{'url':'/api/form'}".  
-* fourth,you should add a api to get the network status, then you can judge whether to use base32 value instead of common api request.  
-* fifth,you should not upload some sensitive json file like user inforamtion.  
-  
-
-# Thanks
-Thanks for [Provash Shoumma](https://twitter.com/proshoumma) who provided open source code.
 
 # ReForum
 A minimal forum application built with the following technologies:
@@ -123,11 +92,17 @@ Here we can create new forums and that forum will be displayed in the applicatio
 
 Congratulation! You now have a clone of this application in your server. :-)
 
+## Path for Future Work
+* Add search functionality
+* Add unit tests for both backend and frontend
+* Ability to change the name and logo of the site from admin panel.
+* Make the installation process more interactive
+* Add multiple theme support.
 
 ## License
 [MIT License](https://github.com/shoumma/Mister-Poster/blob/master/LICENSE). Do whatever you want to do. :-)
 
+## Conclusion
+The application is created with lots of ♥. Any pull request, issues and contribution is very appreciated. It would be really great if we can take this application to the next level, where it can be used as a platform for forums.
 
-## Path for Future Work
-* Add hash of json filename whose length is limited in filesystem.
-* Add common login by username and password.
+[Provash Shoumma](https://twitter.com/proshoumma)

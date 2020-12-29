@@ -18,6 +18,13 @@ import appLayout from 'SharedStyles/appLayout.css';
 import styles from './styles.css';
 
 class ForumFeed extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pageNum: 1,
+    };
+  }
   componentDidMount() {
     const {
       currentForumId,
@@ -37,13 +44,57 @@ class ForumFeed extends Component {
       getDiscussions,
       getPinnedDiscussions,
     } = this.props;
+    const{
+      pageNum
+    } = this.state;
 
     // get the discussions again
     // if the forum didn't matched
     if (prevProps.currentForum !== currentForum) {
       const feedChanged = true;
-      getDiscussions(currentForumId(), feedChanged);
+      getDiscussions(currentForumId(), feedChanged,pageNum);
       getPinnedDiscussions(currentForumId(), feedChanged);
+    }
+  }
+  previousPage(){
+    const{
+      pageNum
+    } = this.state;
+    
+    const {
+      currentForumId,
+      getDiscussions,
+    } = this.props;
+
+    
+    if (pageNum==1){
+      alert("no more discussions");
+    }else{
+      this.setState({
+        pageNum:pageNum-1
+      })
+      getDiscussions(currentForumId(), false,false,pageNum-1);
+    }
+    
+  }
+  nextPage(){
+    const{
+      pageNum
+    } = this.state;
+
+    const {
+      currentForumId,
+      getDiscussions,
+      discussions
+    } = this.props;
+    
+    if (discussions.length>=10){
+      this.setState({
+        pageNum:pageNum+1
+      })
+      getDiscussions(currentForumId(), false,false,pageNum+1);
+    }else{
+      alert("no more discussions");
     }
   }
 
@@ -53,11 +104,12 @@ class ForumFeed extends Component {
       getDiscussions,
       updateSortingMethod,
       sortingMethod,
+      currentForumId,
     } = this.props;
 
     if (sortingMethod !== newSortingMethod) {
       updateSortingMethod(newSortingMethod);
-      getDiscussions(currentForum, false, true);
+      getDiscussions(currentForumId(), false, true);
     }
   }
 
@@ -85,6 +137,9 @@ class ForumFeed extends Component {
       sortingMethod,
       error,
     } = this.props;
+    const{
+      pageNum
+    } = this.state;
 
     if (error) {
       return (
@@ -115,6 +170,11 @@ class ForumFeed extends Component {
             activeSortingMethod={sortingMethod}
           />
 
+          <div style={{display:'flex',paddingTop:'15px',paddingBottom:'15px'}}>
+            <button type="button" style={{flex:'1'}} onClick={this.previousPage.bind(this)}>Previous</button>
+            <div style={{flex:'1',textAlign:'center'}}>{pageNum}</div>
+            <button type="button" style={{flex:'1'}} onClick={this.nextPage.bind(this)}>Next</button>
+          </div>
           { this.renderNewDiscussionButtion() }
         </div>
 

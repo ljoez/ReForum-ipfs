@@ -55,31 +55,35 @@ class FeedBox extends Component {
     if (type === 'pinned') discussionBoxTitle = 'Pinned';
 
     return (
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <span className={styles.title}>{discussionBoxTitle}</span>
-          { !userProfile && this.renderSort() }
-        </div>
-        { loading && <div className={styles.loading}>Loading...</div> }
-        { this.renderEmptyDiscussionLine(loading, discussions) }
-        { !loading &&
-          <div className={styles.discussions}>
-            { discussions && discussions.map((discussion) =>
-              <DiscussionBox
-                userProfile={userProfile}
-                key={discussion._id}
-                userName={discussion.user.name || discussion.user.username}
-                userGitHandler={discussion.user.username}
-                discussionTitle={discussion.title}
-                time={discussion.date}
-                tags={discussion.tags}
-                opinionCount={discussion.opinion_count}
-                voteCount={discussion.favorites.length}
-                link={`/${userProfile ? discussion.forum.forum_slug : currentForum}/discussion/${discussion.discussion_slug}`}
-              />
-            ) }
+      <div>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <span className={styles.title}>{discussionBoxTitle}</span>
+            { !userProfile && this.renderSort() }
           </div>
-        }
+          { loading && <div className={styles.loading}>Loading...</div> }
+          { this.renderEmptyDiscussionLine(loading, discussions) }
+          { !loading &&
+            <div className={styles.discussions}>
+              { discussions && discussions.map((discussion) =>
+                <DiscussionBox
+                  userProfile={userProfile}
+                  key={discussion._id}
+                  userName={discussion.user.username}
+                  userGitHandler={discussion.user.username}
+                  discussionTitle={discussion.title}
+                  time={discussion.date}
+                  tags={discussion.tags}
+                  opinionCount={discussion.opinion_count}
+                  voteCount={discussion.favorites.length}
+                  link={`/${userProfile ? discussion.forum.forum_slug : currentForum}/discussion/${discussion.discussion_slug}`}
+                />
+              )}
+
+            </div>
+          }
+        </div>
+      
       </div>
     );
   }

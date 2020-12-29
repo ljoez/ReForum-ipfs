@@ -21,7 +21,7 @@ const forumAPI = (app) => {
 
   // get discussions of a forum
   app.get('/api/forum/:forum_id/discussions', (req, res) => {
-    getDiscussions(req.params.forum_id, false, req.query.sorting_method).then(
+    getDiscussions(req.params.forum_id, false, req.query.sorting_method,req.query.pageNum).then(
       (result) => { res.send(result); },
       (error) => { res.send([]); }
     );
