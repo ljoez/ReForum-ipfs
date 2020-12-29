@@ -108,4 +108,4 @@ Congratulation! You now have a clone of this application in your server. :-)
 
 
 ## Path for Future Work
-Welcome everyone to commit your opinon.This is a open 
+Welcome everyone to commit your opinon.This is a open platform.
