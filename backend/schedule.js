@@ -18,7 +18,6 @@ const taskOuputPath = "public/";
 var child_process=require("child_process");
 
 const scheduleCronstyle = async ()=>{
-  //每分钟的第30秒定时执行一次:
     schedule.scheduleJob('30 * * * * *',async ()=>{
       
       await new Promise((resolveThird,rejectThird)=>{
