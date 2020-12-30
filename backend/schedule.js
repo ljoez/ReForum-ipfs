@@ -22,7 +22,10 @@ const scheduleCronstyle = async ()=>{
       
       await new Promise((resolveThird,rejectThird)=>{
         child_process.execFile("textileUpload.bat",null,null,function(error,stdout,stderr){
-          console.log("success");
+          if(error){
+            console.log(error);
+            }
+            console.log(stdout);
           resolveThird(1);
         })
       })

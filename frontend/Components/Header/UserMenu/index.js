@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import onClickOutside from 'react-onclickoutside';
 import styles from './styles';
 import { signIn } from './api';
-
+import env from '../../../env.js';
 import  CustomButton from 'Components/Button' ;
 // import { Form, Icon, Input, Button as AntButton, Checkbox } from 'antd';
 
@@ -67,7 +67,7 @@ class UserMenu extends Component {
 
           { !signedIn && subMenuStatus=='signUp' && 
               <div style={{height:'100px'}}>
-                <form action="/api/user/signIn" method="post">
+                <form action={env.url+'/api/user/signIn'} method="post">
                   {/* <a className={styles.signInLink} href={'/api/user/authViaGitHub'}>asdsad</a> */}
                     <div style={{display:'flex'}}>
                       <div style={{flex:'1'}}>username:

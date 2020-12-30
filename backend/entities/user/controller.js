@@ -149,7 +149,8 @@ const signInViaLocal = (username,password) => {
             // create a new user
             const newUser = new User({
               username: username,
-              password: password
+              password: password,
+              role: assignAdmin ? 'admin' : 'user'
             });
 
             // save the user and resolve the user doc
