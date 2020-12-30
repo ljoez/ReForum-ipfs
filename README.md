@@ -77,12 +77,15 @@ We need to provide all the information here. You can notice that we need the dat
 ```
 mongodb://localhost:27017/reforum
 ```
-Then, we need to configure the env file of the codebase.Open the file 'frontend/env.js' add the necessary server information.The file looks like this:
-
+Then, we need to configure the env file of the codebase.Open the file 'frontend/env.js' add the necessawry server information.The file looks like this:
+```js
 export default {
     url:'http://localhost:8080'    
 }
+```
 You need to replace the server dns domain or ip addr of 'localhost'.
+
+And we should install textile(https://textile.io/)'s hub(https://docs.textile.io/hub/accounts/),please enter command line 'hub init' to register your account,and then 'hub buck init' in this '/public' path.
 
 Now we are ready to run the application. You can run either run the development environment of the application which will include Hot-Reload for JS codes using Webpack and the Redux dev tool extension, or you can run the production edition. The default port for developer edition is `8080`, and for production is `process.env.PORT`.
 
