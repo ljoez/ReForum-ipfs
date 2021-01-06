@@ -8,6 +8,9 @@ You can visit this forum by any ipfs gateway (like ipfs.io,hub.textile.io), or i
 You can regeister,login, post topics,reply discussions in this forum.   
 If you are in network restict area,though you cannot send any message,but you can browser discussions which are updated in one minute.  
 This is a new form of future forum.  
+
+## Demo
+ website address(https://hub.textile.io/ipns/bafzbeibcbywdlwihppk3nstwb4swrnfvewgmw4j3kc7ywrsawsjejdarl4/index.html)
 ## I have explored some convenient standards in this web3 based on ipfs.
 * first,front and back system must be separate.  
 * second,back system need generate json file which can be uploaded by ipfs,and visited by front page.  
