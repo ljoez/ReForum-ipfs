@@ -34,7 +34,7 @@
       "command": "node server.js",
       "env": {
         "NODE_ENV": "production",
-        "PORT": 3030
+        "PORT": 443
       }
     },
     "start:dev": {

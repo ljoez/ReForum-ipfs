@@ -15,20 +15,9 @@ const keccak256 = require('keccak256');
 
 
 const taskOuputPath = "public/";
-var child_process=require("child_process");
 
 const scheduleCronstyle = async ()=>{
     schedule.scheduleJob('30 * * * * *',async ()=>{
-      
-      await new Promise((resolveThird,rejectThird)=>{
-        child_process.execFile("textileUpload.bat",null,null,function(error,stdout,stderr){
-          if(error){
-            console.log(error);
-            }
-            console.log(stdout);
-          resolveThird(1);
-        })
-      })
       
       await new Promise((resolveThird,rejectThird)=>{
         Forum
