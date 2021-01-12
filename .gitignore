@@ -103,5 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-frontend/env.js
-config/credentials.js
+/frontend/env.js
+/config/credentials.js
