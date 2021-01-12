@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link,hashHistory } from 'react-router';
 import classnames from 'classnames';
 import onClickOutside from 'react-onclickoutside';
 import styles from './styles';
-import { signIn } from './api';
+import { signIn,signout } from './api';
 import env from '../../../env.js';
 import  CustomButton from 'Components/Button' ;
 // import { Form, Icon, Input, Button as AntButton, Checkbox } from 'antd';
@@ -19,6 +19,7 @@ class UserMenu extends Component {
     this.userNameHandleChange = this.userNameHandleChange.bind(this);
     this.passwordHandleChange = this.passwordHandleChange.bind(this);
     this.submit = this.submit.bind(this);
+    this.signoutClick = this.signoutClick.bind(this);
   }
 
   handleClickOutside() {
@@ -44,8 +45,24 @@ class UserMenu extends Component {
     this.setState({password: event.target.value});
   }
   submit(){
-    signIn({username:this.state.username,password:this.state.password});
-
+    var that = this;
+    signIn({username:this.state.username,password:this.state.password}).then(
+      data => {
+        location.reload()
+    },
+    error => {
+      alert("password is incorrect");
+    }
+    );
+  }
+  signoutClick(){
+    signout().then(
+      data => {
+        location.reload()
+    },
+    error => {
+    }
+    );
   }
 
   renderSubMenu() {
@@ -67,7 +84,7 @@ class UserMenu extends Component {
 
           { !signedIn && subMenuStatus=='signUp' && 
               <div style={{height:'100px'}}>
-                <form action={env.url+'/api/user/signIn'} method="post">
+                {/* <form action={env.url+'/api/user/signIn'} method="post"> */}
                   {/* <a className={styles.signInLink} href={'/api/user/authViaGitHub'}>asdsad</a> */}
                     <div style={{display:'flex'}}>
                       <div style={{flex:'1'}}>username:
@@ -83,9 +100,9 @@ class UserMenu extends Component {
                     </div>
                     <div style={{textAlign:'center'}}>
                       {/* <AntButton type="primary">Primary Button</AntButton> */}
-                      <button type="submit" style={{justifyContent:'center',borderRadius: '6px',textAlign:'center',marginTop:'8px',backgroundColor: '#555555',color: 'white',padding: '7px 15px',fontSize: '16px' }}>Submit!</button>
+                      <button onClick={this.submit} style={{justifyContent:'center',borderRadius: '6px',textAlign:'center',marginTop:'8px',backgroundColor: '#555555',color: 'white',padding: '7px 15px',fontSize: '16px' }}>Submit!</button>
                     </div>
-                </form>
+                {/* </form> */}
               </div>
               // <Form onSubmit={this.handleSubmit} className="login-form">
               //   <Form.Item>
@@ -126,7 +143,7 @@ class UserMenu extends Component {
             }
           { signedIn && <span onClick={this.toggleSubMenu}><Link className={styles.subMenuItem} to={`/user/${gitHandler}`}>My Profile</Link></span> }
           {/* { signedIn && <a className={styles.subMenuItem} href={'#'}>Settings</a> } */}
-          { signedIn && <a className={styles.subMenuItem} href={'/api/user/signout'}>Sign Out</a> }
+          { signedIn && <a className={styles.subMenuItem} onClick={this.signoutClick} >Sign Out</a> }
         </div>
       );
     }

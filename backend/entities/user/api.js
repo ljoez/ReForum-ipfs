@@ -13,30 +13,30 @@ const userAPI = (app) => {
   });
 
   // github authentication route
-  app.get(
-    '/api/user/authViaGitHub',
-    passport.authenticate('github')
-  );
+  // app.get(
+  //   '/api/user/authViaGitHub',
+  //   passport.authenticate('github')
+  // );
 
   app.post(
     // this should match callback url of github app
     '/api/user/signIn',
-    passport.authenticate('local', { failureRedirect: '/signIn/failed' }),
-    (req, res) => { res.redirect('/'); }
+    passport.authenticate('local'),
+    (req, res) => {res.send(req.user)}
   );
 
   // callback route from github
-  app.get(
-    // this should match callback url of github app
-    '/api/user/authViaGitHub/callback',
-    passport.authenticate('github', { failureRedirect: '/signIn/failed' }),
-    (req, res) => { res.redirect('/'); }
-  );
+  // app.get(
+  //   // this should match callback url of github app
+  //   '/api/user/authViaGitHub/callback',
+  //   passport.authenticate('github', { failureRedirect: '/signIn/failed' }),
+  //   (req, res) => { res.redirect('/'); }
+  // );
 
   // signout the user
   app.get('/api/user/signout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.send('logout success');
   });
 
   // get user full profile

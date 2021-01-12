@@ -12,6 +12,7 @@ const serverConfigs = require('./config/serverConfig');
 mongoose.connect(serverConfigs.DBURL);
 // initialize express
 const app = express();
+var cors = require("cors");
 app.use(cors());
 
 // apply express configs
