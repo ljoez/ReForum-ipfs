@@ -1,4 +1,4 @@
 
 export default {
-    url:'http://test:8080'    
+    url:'http://localhost:8080'    
 }
