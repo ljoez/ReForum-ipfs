@@ -8,7 +8,7 @@ export const fetchForums = (forum_id) => {
 };
 
 export const fetchUser = () => {
-  return axios.get(env.url+'/api/user/getUser');
+  return axios.get(env.url+'/api/user/getUser',{ withCredentials: true });
 };
 
 export const fetchNetworkStatus = () => {

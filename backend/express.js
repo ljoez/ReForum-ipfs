@@ -39,7 +39,7 @@ const expressConfig = (app, serverConfigs) => {
       collection : 'sessions',
     }),
   }));
-
+  require("./enable-cors.js")(app);
   // use passport session
   app.use(passport.initialize());
   app.use(passport.session());

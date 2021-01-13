@@ -7,7 +7,7 @@ const keccak256 = require('keccak256');
  * feed apis
  */
 export const fetchDiscussions = (forum_id,sortingMethod,pageNum) => {
-  return axios.get(env.url+`/api/forum/${forum_id}/discussions?sorting_method=${sortingMethod}&pageNum=${pageNum}`);
+  return axios.get(env.url+`/api/forum/${forum_id}/discussions?sorting_method=${sortingMethod}&pageNum=${pageNum}`,{ withCredentials: true });
 };
 export const fetchDiscussionsIpfs = (forum_id,sortingMethod,pageNum) => {
   
