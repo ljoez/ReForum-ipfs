@@ -10,7 +10,7 @@ If you are in network restict area,though you cannot send any message,but you ca
 This is a new form of future forum.  
 
 ## Demo
- website address(https://hub.textile.io/ipns/bafzbeifuo3vyl62tuwdys2irhihspxiz4zrk7fgsiooejehnrz7dlfyv5m/index.html)
+ website address(https://hub.textile.io/ipns/bafzbeib2jvsythibag52rncf56qflqye6iekponbt3u7txcbv2oz45sy5e/index.html)
 ## I have explored some convenient standards in this web3 based on ipfs.
 * first,front and back system must be separate.  
 * second,back system need generate json file which can be uploaded by ipfs,and visited by front page.  
