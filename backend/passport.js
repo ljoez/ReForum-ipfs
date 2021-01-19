@@ -13,27 +13,50 @@ const GITHUB_CALLBACK_URL = require('../config/credentials').GITHUB_CALLBACK_URL
 const getUser = require('./entities/user/controller').getUser;
 const signInViaGithub = require('./entities/user/controller').signInViaGithub;
 const signInViaLocal = require('./entities/user/controller').signInViaLocal;
+const findUser = require('./entities/user/controller').findUser;
+
+var passportJWT = require("passport-jwt");
+var ExtractJwt = passportJWT.ExtractJwt;
+var JwtStrategy = passportJWT.Strategy;
+var jwtOptions = {}
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+jwtOptions.secretOrKey = 'tasmanianDevil';
+
+
 
 /**
  * passport configuration
  */
 const passportConfig = (app) => {
-  passport.serializeUser((user, done) => {
-    done(null, user._id);
-  });
+  
 
-  passport.deserializeUser((id, done) => {
-    getUser(id).then(
-      (user) => { done(null, user); },
-      (error) => { done(error); }
-    );
-  });
-  passport.use('local',new LocalStrategy(function (username,password,done){
-    signInViaLocal(username,password).then(
+
+  var strategy = new JwtStrategy(jwtOptions, function(jwt_payload, done) {
+    console.log(jwt_payload);
+    findUser(jwt_payload.id).then(
       (user) => { console.log('got the user'); done(null, user); },
       (error) => { console.log('something error occurs'); done(error); }
     )
-  }));
+  });
+
+  // passport.serializeUser((user, done) => {
+  //   done(null, user._id);
+  // });
+
+  // passport.deserializeUser((id, done) => {
+  //   getUser(id).then(
+  //     (user) => { done(null, user); },
+  //     (error) => { done(error); }
+  //   );
+  // });
+  
+  passport.use('jwt',strategy);
+  // passport.use('local',new LocalStrategy(function (username,password,done){
+  //   signInViaLocal(username,password).then(
+  //     (user) => { console.log('got the user'); done(null, user); },
+  //     (error) => { console.log('something error occurs'); done(error); }
+  //   )
+  // }));
     
   // github strategy for passport using OAuth
   // passport.use(new GitHubStrategy(

@@ -3,6 +3,7 @@ const getDiscussion = require('./controller').getDiscussion;
 const createDiscussion = require('./controller').createDiscussion;
 const toggleFavorite = require('./controller').toggleFavorite;
 const deleteDiscussion = require('./controller').deleteDiscussion;
+const passport = require('passport');
 
 /**
  * discussion apis
@@ -18,7 +19,7 @@ const discussionAPI = (app) => {
   });
 
   // toggle favorite to the discussion
-  app.put('/api/discussion/toggleFavorite/:discussion_id', (req, res) => {
+  app.get('/api/discussion/toggleFavorite/:discussion_id',passport.authenticate('jwt', { session: false }), (req, res) => {
     const { discussion_id } = req.params;
     if (req.user) {
       // TODO: describe the toggle process with comments
@@ -37,7 +38,7 @@ const discussionAPI = (app) => {
   });
 
   // create a new discussion
-  app.post('/api/discussion/newDiscussion', (req, res) => {
+  app.post('/api/discussion/newDiscussion', passport.authenticate('jwt', { session: false }),(req, res) => {
     if (req.user) {
       createDiscussion(req.body).then(
         (result) => { res.send(Object.assign({}, result._doc, { postCreated: true })); },
@@ -49,7 +50,7 @@ const discussionAPI = (app) => {
   });
 
   // delete a discussion
-  app.delete('/api/discussion/deleteDiscussion/:discussion_slug', (req, res) => {
+  app.delete('/api/discussion/deleteDiscussion/:discussion_slug',passport.authenticate('jwt', { session: false }), (req, res) => {
     if (req.user) {
       deleteDiscussion(req.params.discussion_slug).then(
         (result) => { res.send({ deleted: true }); },

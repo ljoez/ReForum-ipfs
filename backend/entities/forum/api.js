@@ -1,6 +1,7 @@
 // forum controllers
 const getAllForums = require('./controller').getAllForums;
 const getDiscussions = require('./controller').getDiscussions;
+const passport = require('passport');
 
 /**
  * forum apis

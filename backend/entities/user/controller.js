@@ -8,7 +8,9 @@ const getAllOpinions = require('../opinion/controller').getAllOpinions;
 const User = require('./model');
 const Discussion = require('../discussion/model');
 const Opinion = require('../opinion/model');
-
+const jwt = require('jsonwebtoken');
+var jwtOptions = {}
+jwtOptions.secretOrKey = 'tasmanianDevil';
 /**
  * get user doc by user id
  * @param  {ObjectId} user_id
@@ -108,6 +110,75 @@ const signInViaGithub = (gitProfile) => {
 };
 
 
+const findUser = (id) => {
+  return new Promise((resolve, reject) => {
+
+    // find if user exist on db
+    User.findOne({ _id: id}, (error, user) => {
+      if (error) { console.log(error); reject(error); }
+      else {
+        // get the email from emails array of gitProfile
+        // const email = _.find(gitProfile.emails, { verified: true }).value;
+
+          // update the user with latest git profile info
+          resolve(user);
+          // save the info and resolve the user doc
+      }
+    });
+
+  });
+};
+// const signInViaJwt = (username,password) => {
+//   return new Promise((resolve, reject) => {
+
+//     // find if user exist on db
+//     User.findOne({ username: username}, (error, user) => {
+//       if (error) { console.log(error); reject(error); }
+//       else {
+//         // get the email from emails array of gitProfile
+//         // const email = _.find(gitProfile.emails, { verified: true }).value;
+
+//         // user existed on db
+//         if (user) {
+//           if (user.password == password){
+//           // update the user with latest git profile info
+//             resolve(user);
+//           }else{
+//             reject("password is incorrect");
+//           }
+//           // save the info and resolve the user doc
+//         }
+
+//         // user doesn't exists on db
+//         else {
+//           // check if it is the first user (adam/eve) :-p
+//           // assign him/her as the admin
+//           User.count({}, (err, count) => {
+//             console.log('usercount: ' + count);
+
+//             let assignAdmin = false;
+//             if (count === 0) assignAdmin = true;
+
+//             // create a new user
+//             const newUser = new User({
+//               username: username,
+//               password: password,
+//               role: assignAdmin ? 'admin' : 'user'
+//             });
+
+//             // save the user and resolve the user doc
+//             newUser.save((error) => {
+//               if (error) { console.log(error); reject(error); }
+//               else { resolve(newUser); }
+//             });
+
+//           });
+//         }
+//       }
+//     });
+
+//   });
+// };
 /**
  * sign in/up user via github provided info
  * this will signin the user if user existed
@@ -129,7 +200,9 @@ const signInViaLocal = (username,password) => {
         if (user) {
           if (user.password == password){
           // update the user with latest git profile info
-            resolve(user);
+            var payload = {id: user.id};
+            var token = jwt.sign(payload, jwtOptions.secretOrKey);
+            resolve(token);
           }else{
             reject("password is incorrect");
           }
@@ -156,7 +229,11 @@ const signInViaLocal = (username,password) => {
             // save the user and resolve the user doc
             newUser.save((error) => {
               if (error) { console.log(error); reject(error); }
-              else { resolve(newUser); }
+              else {   
+                var payload = {id: newUser.id};
+                var token = jwt.sign(payload, jwtOptions.secretOrKey);
+                resolve(token); 
+              }
             });
 
           });
@@ -218,4 +295,5 @@ module.exports = {
   getUser,
   getFullProfile,
   signInViaLocal,
+  findUser
 };

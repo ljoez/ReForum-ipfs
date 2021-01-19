@@ -6,9 +6,13 @@ import styles from './styles';
 import { signIn,signout } from './api';
 import env from '../../../env.js';
 import  CustomButton from 'Components/Button' ;
+import storage from '../../../App/storage';
+import store from '../../../App/store.js';
+
 // import { Form, Icon, Input, Button as AntButton, Checkbox } from 'antd';
 
 import 'antd/dist/antd.css';
+import { getForums, updateCurrentForum, getUser,getNetworkStatus } from '../../../App/actions';
 
 class UserMenu extends Component {
   constructor(props) {
@@ -48,21 +52,20 @@ class UserMenu extends Component {
     var that = this;
     signIn({username:this.state.username,password:this.state.password}).then(
       data => {
-        location.reload()
-    },
-    error => {
-      alert("password is incorrect");
-    }
+        if (data.data.error != null){
+          alert("password is incorrect");
+        }else {
+          storage.set('token',data.data);
+          store.dispatch(getUser());
+        }
+      },
+      error => {
+      }
     );
   }
   signoutClick(){
-    signout().then(
-      data => {
-        location.reload()
-    },
-    error => {
-    }
-    );
+      storage.set('token','');
+      store.dispatch(getUser());
   }
 
   renderSubMenu() {

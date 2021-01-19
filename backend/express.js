@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const compress = require('compression');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
@@ -29,20 +30,24 @@ const expressConfig = (app, serverConfigs) => {
   // read cookies (should be above session)
   app.use(cookieParser());
 
-  // use session with mongo
-  app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: 'secret',
-    store: new mongoStore({
-      url: serverConfigs.DBURL,
-      collection : 'sessions',
-    }),
-  }));
-  require("./enable-cors.js")(app);
+  // require("./enable-cors.js")(app);
   // use passport session
   app.use(passport.initialize());
-  app.use(passport.session());
+  // use session with mongo
+  // app.use(session({
+  //   resave: false,
+  //   saveUninitialized: true,
+  //   secret: 'secret',
+  //   store: new mongoStore({
+  //     url: serverConfigs.DBURL,
+  //     collection : 'sessions',
+  //   }),
+  //   cookie:{
+  //     sameSite:'none',
+  //     secure:true
+  //   }
+  // }));
+  // app.use(passport.session());
 
   // apply passport configs
   require('./passport')(app);

@@ -2,13 +2,14 @@
 const getAllOpinions = require('./controller').getAllOpinions;
 const createOpinion = require('./controller').createOpinion;
 const deleteOpinion = require('./controller').deleteOpinion;
+const passport = require('passport');
 
 /**
  * opinion apis
  */
 const opinionAPI = (app) => {
   // create an opinion
-  app.post('/api/opinion/newOpinion', (req, res) => {
+  app.post('/api/opinion/newOpinion', passport.authenticate('jwt', { session: false }),(req, res) => {
     if(req.user) {
       createOpinion(req.body).then(
         (result) => { res.send(result); },
@@ -20,7 +21,7 @@ const opinionAPI = (app) => {
   });
 
   // remove an opinion
-  app.delete('/api/opinion/deleteOpinion/:opinion_id', (req, res) => {
+  app.delete('/api/opinion/deleteOpinion/:opinion_id',passport.authenticate('jwt', { session: false }), (req, res) => {
     if(req.user) {
       deleteOpinion(req.params.opinion_id).then(
         (result) => { res.send({ deleted: true }); },

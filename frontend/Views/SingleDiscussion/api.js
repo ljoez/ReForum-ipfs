@@ -4,6 +4,7 @@ import Base32 from '../../util/base32.js'
 
 import env from '../../env.js';
 const keccak256 = require('keccak256');
+import storage from './../../App/storage.js';
 /**
  * single discussion apis
  */
@@ -18,17 +19,29 @@ export const fetchSingleDiscussionIpfs = (discussion_slug) => {
 };
 
 export const toggleFavoriteApi = (discussion_id) => {
-  return axios.put(env.url+`/api/discussion/toggleFavorite/${discussion_id}`);
+  var accessString = storage.get('token');
+  return axios.get(env.url+`/api/discussion/toggleFavorite/${discussion_id}`,{
+    headers: { Authorization: `bearer ${accessString}` },
+  });
 };
 
 export const postOpinionApi = (opinion) => {
-  return axios.post(env.url+'/api/opinion/newOpinion', opinion);
+  var accessString = storage.get('token');
+  return axios.post(env.url+'/api/opinion/newOpinion', opinion,{
+    headers: { Authorization: `bearer ${accessString}` },
+  });
 };
 
 export const deletePostApi = (discussionSlug) => {
-  return axios.delete(env.url+`/api/discussion/deleteDiscussion/${discussionSlug}`);
+  var accessString = storage.get('token');
+  return axios.delete(env.url+`/api/discussion/deleteDiscussion/${discussionSlug}`,{
+    headers: { Authorization: `bearer ${accessString}` },
+  });
 };
 
 export const deleteOpinionApi = (opinionId) => {
-  return axios.delete(env.url+`/api/opinion/deleteOpinion/${opinionId}`);
+  var accessString = storage.get('token');
+  return axios.delete(env.url+`/api/opinion/deleteOpinion/${opinionId}`,{
+    headers: { Authorization: `bearer ${accessString}` },
+  });
 };

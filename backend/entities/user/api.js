@@ -1,13 +1,14 @@
 const passport = require('passport');
 const signIn = require('./controller').signIn;
 const getFullProfile = require('./controller').getFullProfile;
+const signInViaLocal = require('./controller').signInViaLocal;
 
 /**
  * user apis
  */
 const userAPI = (app) => {
   // get authenticated user
-  app.get('/api/user/getUser', (req, res) => {
+  app.get('/api/user/getUser',passport.authenticate('jwt', { session: false }), (req, res) => {
     if (req.user) res.send(req.user);
     else res.send(null);
   });
@@ -20,10 +21,12 @@ const userAPI = (app) => {
 
   app.post(
     // this should match callback url of github app
-    '/api/user/signIn',
-    passport.authenticate('local'),
-    (req, res) => {res.send(req.user)}
-  );
+    '/api/user/signIn',(req, res) => {
+      signInViaLocal(req.body.username,req.body.password).then(
+        result => { res.send(result); },
+        error => { res.send({ error }); }
+      );
+    });
 
   // callback route from github
   // app.get(
@@ -34,13 +37,13 @@ const userAPI = (app) => {
   // );
 
   // signout the user
-  app.get('/api/user/signout', (req, res) => {
-    req.logout();
-    res.send('logout success');
-  });
+  // app.get('/api/user/signout', (req, res) => {
+  //   req.logout();
+  //   res.send('logout success');
+  // });
 
   // get user full profile
-  app.get('/api/user/profile/:username', (req, res) => {
+  app.get('/api/user/profile/:username',(req, res) => {
     getFullProfile(req.params.username).then(
       result => { res.send(result); },
       error => { res.send({ error }); }
