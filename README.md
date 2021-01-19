@@ -17,6 +17,7 @@ This is a new form of future forum.
 * third,these json files' name should be uploaded in a standard method: I use keccak256 form of string like "{'url':'/api/form'}".  
 * fourth,you should add a api to get the network status, then you can judge whether to use keccak256 value instead of common api request.  
 * fifth,you should not upload some sensitive json file like user inforamtion.  
+* sixth,please use java web token to verify user' identity,because you must solve cors problem.  
   
 
 # Thanks
