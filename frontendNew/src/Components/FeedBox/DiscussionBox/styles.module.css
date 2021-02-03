@@ -1,0 +1,89 @@
+@value primaryFontColor, secondaryFontColor, borderColor, backShade from 'SharedStyles/globalStyles.module.css';
+@value smallBP from 'SharedStyles/globalStyles.module.css';
+
+/**
+ * PostBox styles
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-bottom: 1px solid borderColor;
+}
+
+.container:last-child { border-bottom: none; }
+.title {
+  font-size: 18px;
+  font-weight: 300;
+
+}
+.title{
+  text-decoration: none;
+  color: primaryFontColor;
+}
+.titleBottomMargin { margin-bottom: 10px; }
+.posterInfo .name {
+  font-weight: 700;
+  color: secondaryFontColor;
+  text-decoration: none;
+  transition: color 0.3s;
+
+}
+.name:hover { color: primaryFontColor; }
+.posterInfo .gitHandler {
+  margin-left: 5px;
+  text-decoration: none;
+  color: secondaryFontColor;
+  transition: color 0.3s;
+
+
+  gitHandler:hover { color: primaryFontColor; }
+}
+
+.posterInfo .gitHandler .gitIcon {
+  font-size: 16px;
+  padding: 0 5px;
+}
+.posterInfo {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.boxFooter {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.tagsArea {
+  display: flex;
+  align-items: center;
+
+}
+
+/* @media smallBP {
+  .boxFooter{
+  margin-top: 0px;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  }
+  
+  .tagsArea { margin-top: 5px; }
+} */
+.postInfo .info {
+  margin-left: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: lowercase;
+  color: secondaryFontColor;
+
+}
+
+.postInfo .info:first-child { margin-left: 0px; }
+.postInfo {
+  
+  
+}

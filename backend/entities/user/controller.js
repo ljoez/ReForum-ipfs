@@ -75,7 +75,12 @@ const signInViaGithub = (gitProfile) => {
 
             let assignAdmin = false;
             if (count === 0) assignAdmin = true;
+            var patten = /^[a-zA-Z]\w{3,15}$/ig;
 
+            if(!patten.test(gitProfile.username)){
+              reject("not correct username");
+              return ;
+            }
             // create a new user
             const newUser = new User({
               name: gitProfile.displayName,
@@ -94,7 +99,6 @@ const signInViaGithub = (gitProfile) => {
                 following: gitProfile._json.following,
               },
             });
-
             // save the user and resolve the user doc
             newUser.save((error) => {
               if (error) { console.log(error); reject(error); }
@@ -226,6 +230,12 @@ const signInViaLocal = (username,password) => {
               role: assignAdmin ? 'admin' : 'user'
             });
 
+            var patten = /^[a-zA-Z]\w{3,15}$/ig;
+
+            if(!patten.test(username)){
+              reject("not correct username");
+              return ;
+            }
             // save the user and resolve the user doc
             newUser.save((error) => {
               if (error) { console.log(error); reject(error); }

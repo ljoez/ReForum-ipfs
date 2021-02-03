@@ -1,2 +1,1 @@
-cd public
-hub buck push -y
+xcopy json public /y

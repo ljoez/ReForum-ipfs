@@ -24,7 +24,7 @@ const expressConfig = (app, serverConfigs) => {
   !serverConfigs.PRODUCTION && app.use(morgan('dev'));
 
   // get data from html froms
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({limit:'5mb'}));
   app.use(bodyParser.urlencoded({ extended: true }));
 
   // read cookies (should be above session)

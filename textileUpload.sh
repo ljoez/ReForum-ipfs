@@ -1,3 +1,3 @@
 #!/bin/bash
-cd public
-hub buck push -y
+cd /home/ec2-user/ReForum-ipfs
+cp -rf json/* public/

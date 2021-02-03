@@ -14,7 +14,7 @@ const getUser = require('./entities/user/controller').getUser;
 const keccak256 = require('keccak256');
 
 
-const taskOuputPath = "public/";
+const taskOuputPath = "json/";
 
 const scheduleCronstyle = async ()=>{
     schedule.scheduleJob('30 * * * * *',async ()=>{
