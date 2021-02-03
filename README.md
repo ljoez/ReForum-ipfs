@@ -103,6 +103,8 @@ $ npm run start:dev
 
 To run the app in production environment:
 ```
+$  npm run build
+in frontendnew create dist files then copy build files to /public path.
 $ npm run start 
 or to run in background:
 $ pm2 start npm --run start 
