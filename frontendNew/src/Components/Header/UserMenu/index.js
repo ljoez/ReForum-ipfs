@@ -3,7 +3,7 @@ import { Link, hashHistory } from 'react-router';
 import classnames from 'classnames';
 import onClickOutside from 'react-onclickoutside';
 import styles from './styles';
-import { signIn, signout } from './api';
+import { signIn, signout,updateAvatar} from './api';
 import env from '../../../env.js';
 import CustomButton from 'Components/Button';
 import storage from '../../../App/storage';
@@ -26,6 +26,9 @@ import { SnackbarProvider, useSnackbar } from 'notistack';
 // import { Form, Icon, Input, Button as AntButton, Checkbox } from 'antd';
 
 import { getForums, updateCurrentForum, getUser, getNetworkStatus } from '../../../App/actions';
+import FileInputComponent from  'react-file-input-previews-base64';
+import ReactFileReader from 'react-file-reader';
+
 
 class UserMenu extends Component {
   constructor(props) {
@@ -40,13 +43,27 @@ class UserMenu extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.gotoProfile = this.gotoProfile.bind(this);
     this.snackbarClose = this.snackbarClose.bind(this);
+    this.submitAvatar = this.submitAvatar.bind(this);
   }
   snackbarClose(){
     this.snackbarClose = false;
   }
   handleClose() {
-
-    this.setState({ activeSubMenu: false });
+    this.setState({activeSubMenu: false });
+  }
+  submitAvatar(files){
+    updateAvatar({avatarImg: files.base64}).then(
+      data => {
+        if (data.data.error != null) {    
+          enqueueSnackbar('This is a success message!', 'error');
+        } else {
+          store.dispatch(getUser());
+        }
+      },
+      error => {
+      }
+    );
+    // console.log(files.base64);
   }
   // handleClickOutside() {
   //   this.setState({ activeSubMenu: false });
@@ -78,6 +95,8 @@ class UserMenu extends Component {
   }
   submit() {
     var that = this;
+    const { 
+      username } = this.state;
     signIn({ username: this.state.username, password: this.state.password }).then(
       data => {
         if (data.data.error != null) {    
@@ -116,8 +135,9 @@ class UserMenu extends Component {
 
     if (activeSubMenu) {
       return (
-        <div className={styles.subMenu}>
+        <div >
           { !signedIn &&
+          <div>
             <Dialog
               onClose={this.handleClose}
               open
@@ -174,17 +194,26 @@ class UserMenu extends Component {
               </DialogContent>
 
             </Dialog>
+            </div>
           }
-          { signedIn && <Menu
+          { signedIn && 
+            <div><Menu
             id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
+            <MenuItem>
+            <ReactFileReader fileTypes={[".jpg",".jpeg",".png"]} base64={true} multipleFiles={false} handleFiles={this.submitAvatar}>
+              Avatar Edit
+            </ReactFileReader>
+            </MenuItem>
             <MenuItem onClick={this.gotoProfile}>My Profile</MenuItem>
             <MenuItem onClick={this.signoutClick}>Sign Out</MenuItem>
-          </Menu>}
+          </Menu>
+          </div>
+          }
         </div>
       );
     }
@@ -196,7 +225,7 @@ class UserMenu extends Component {
     const {
       signedIn,
       userName,
-      avatar,
+      avatarBase64,
       signOutAction,
     } = this.props;
 
@@ -205,6 +234,8 @@ class UserMenu extends Component {
         <div style={{ position: 'relative' }}>
           <div className={styles.container} onClick={this.toggleSubMenu}>
             {/* <img className={styles.userAvatar} src={avatar} alt={`${userName} Avatar`} /> */}
+            <Avatar  src={avatarBase64} style={{ height: '30px', width: '30px' }}/>
+
             <span className={styles.title}>{userName}</span>
           </div>
           {this.renderSubMenu()}
@@ -244,14 +275,14 @@ UserMenu.defaultProps = {
   signedIn: false,
   userName: '',
   gitHandler: '',
-  avatar: '',
+  avatarBase64: '',
 };
 
 UserMenu.propTypes = {
   signedIn: PropTypes.bool.isRequired,
   userName: PropTypes.string,
   gitHandler: PropTypes.string,
-  avatar: PropTypes.string,
+  avatarBase64: PropTypes.string,
 };
 
 export default UserMenu;

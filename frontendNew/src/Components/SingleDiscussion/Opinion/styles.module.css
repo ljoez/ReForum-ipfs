@@ -51,6 +51,7 @@
   font-weight: 700;
   color: primaryFontColor;
   text-decoration: none;
+  margin-left:5px;
 }
 .gitIcon { margin-right: 5px; }
 .dateInfo {

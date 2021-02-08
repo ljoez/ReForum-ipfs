@@ -47,6 +47,7 @@ class UserProfile extends Component {
     const {
       name,
       username,
+      avatarBase64,
       avatarUrl,
       github,
       discussions,
@@ -69,7 +70,7 @@ class UserProfile extends Component {
             name={username}
             gitHandler={username}
             // location={github.location}
-            // avatarUrl={avatarUrl}
+            avatarBase64={avatarBase64}
           />
 
           <FeedBox

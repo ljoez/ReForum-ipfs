@@ -138,6 +138,7 @@ class SingleDiscussion extends Component {
       avatarUrl,
       name,
       username,
+      avatarBase64
     } = discussion.user;
 
     // check if logged in user is owner of the discussion
@@ -158,6 +159,7 @@ class SingleDiscussion extends Component {
           id={_id}
           userAvatar={avatarUrl}
           userName={username}
+          avatarBase64={avatarBase64}
           userGitHandler={username}
           discTitle={title}
           discDate={date}
@@ -182,6 +184,7 @@ class SingleDiscussion extends Component {
               opinionId={opinion._id}
               // userAvatar={opinion.user.avatarUrl}
               userName={opinion.user.username}
+              avatarBase64={opinion.user.avatarBase64}
               userGitHandler={opinion.user.username}
               opDate={opinion.date}
               opContent={opinion.content}

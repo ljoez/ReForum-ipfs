@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import styles from './styles';
 import PropTypes from 'prop-types';
+import Avatar from '@material-ui/core/Avatar';
 
 class Profile extends Component {
   render() {
@@ -9,12 +10,14 @@ class Profile extends Component {
       name,
       gitHandler,
       location,
-      avatarUrl,
+      avatarBase64,
     } = this.props;
 
     return (
       <div className={styles.container}>
-        <div className={styles.avatarContainer}>
+        <div className={styles.avatarContainer}>            
+          <Avatar  src={avatarBase64} style={{ height: '100px', width: '100px' }}/>
+
           {/* <img className={styles.avatar} src={avatarUrl} alt={`${name} avatar`} /> */}
         </div>
         <div className={styles.infoContainer}>

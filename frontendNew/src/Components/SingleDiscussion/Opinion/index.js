@@ -8,6 +8,8 @@ import PlaceholderImage from 'SharedStyles/placeholder.jpg';
 import Button from 'Components/Button';
 import RichMediaEditor from 'Components/RichMediaEditor';
 import PropTypes from 'prop-types';
+import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
 
 class Opinion extends Component {
   render() {
@@ -15,6 +17,7 @@ class Opinion extends Component {
       opinionId,
       userAvatar,
       userName,
+      avatarBase64,
       userGitHandler,
       opDate,
       opContent,
@@ -35,7 +38,12 @@ class Opinion extends Component {
         <div className={styles.infoContainer}>
           {/* <img className={styles.avatar} src={userAvatar} /> */}
           <div className={styles.userInfo}>
-            <Link to={`/user/${userGitHandler}`} className={styles.name}>{userName || userGitHandler}</Link>
+            
+            <Grid container direction="row" justify="flex-start" alignItems="center">
+                <Avatar src={avatarBase64} style={{ height: '20px', width: '20px' }}/>
+                <Link to={`/user/${userGitHandler}`} className={styles.name}>{userName || userGitHandler}</Link>
+              </Grid>
+            {/* <Link to={`/user/${userGitHandler}`} className={styles.name}>{userName || userGitHandler}</Link> */}
             {/* <a href={`https://www.github.com/${userGitHandler}`} target="_blank" className={styles.gitHandler}>
               <i className={classnames('fa fa-github-alt', styles.gitIcon)}></i>
               <span>{userGitHandler}</span>
@@ -66,6 +74,7 @@ Opinion.defaultProps = {
   opinionId: '12345',
   userAvatar: PlaceholderImage,
   userName: 'User name',
+  avatarBase64:null,
   userGitHandler: 'github',
   opDate: 'a day ago',
   opContent: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -80,6 +89,7 @@ Opinion.propTypes = {
   opinionId: PropTypes.string,
   userAvatar: PropTypes.string,
   userName: PropTypes.string,
+  avatarBase64: PropTypes.string,
   userGitHandler: PropTypes.string,
   opDate: PropTypes.any,
   opContent: PropTypes.string,

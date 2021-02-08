@@ -28,6 +28,7 @@
   color: secondaryFontColor;
   text-decoration: none;
   transition: color 0.3s;
+  margin-left:5px;
 
 }
 .name:hover { color: primaryFontColor; }
@@ -61,7 +62,11 @@
 .tagsArea {
   display: flex;
   align-items: center;
+}
 
+.avatar {
+  width: 10;
+  height: 10;
 }
 
 /* @media smallBP {

@@ -43,6 +43,7 @@
   font-weight: 700;
   color: primaryFontColor;
   text-decoration: none;
+  margin-left:5px;
 }
 .gitHandler {
   margin-left: 15px;

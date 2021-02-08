@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './styles';
 
+import Typography from '@material-ui/core/Typography';
 const Logo = () => {
   return (
     <div className={styles.logoContainer}>

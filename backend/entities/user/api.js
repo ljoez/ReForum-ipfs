@@ -2,6 +2,7 @@ const passport = require('passport');
 const signIn = require('./controller').signIn;
 const getFullProfile = require('./controller').getFullProfile;
 const signInViaLocal = require('./controller').signInViaLocal;
+const updateAvatar = require('./controller').updateAvatar;
 
 /**
  * user apis
@@ -11,6 +12,17 @@ const userAPI = (app) => {
   app.get('/api/user/getUser',passport.authenticate('jwt', { session: false }), (req, res) => {
     if (req.user) res.send(req.user);
     else res.send(null);
+  });
+  
+  app.post('/api/user/updateAvatar',passport.authenticate('jwt', { session: false }), (req, res) => {
+    if (req.user) {
+      updateAvatar(req.user.username,req.body.avatarImg).then(
+        (result) => { res.send({ succ: true }); },
+        (error) => { res.send({ succ: false }); }
+      );
+    } else {
+      res.send({ succ: false });
+    }
   });
 
   // github authentication route

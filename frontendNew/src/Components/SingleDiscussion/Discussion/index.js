@@ -10,6 +10,9 @@ import Button from 'Components/Button';
 import Tag from 'Components/Tag';
 import RichMediaEditor from 'Components/RichMediaEditor';
 import PropTypes from 'prop-types';
+import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
+
 
 class Discussion extends Component {
   render() {
@@ -17,6 +20,7 @@ class Discussion extends Component {
       id,
       userAvatar,
       userName,
+      avatarBase64,
       userGitHandler,
       discTitle,
       discDate,
@@ -48,7 +52,11 @@ class Discussion extends Component {
           {/* <img className={styles.avatar} src={userAvatar} /> */}
           <div className={styles.columnOnSmallBP}>
             <div className={styles.userInfo}>
-              <Link to={`/user/${userGitHandler}`} className={styles.name}>{userName || userGitHandler}</Link>
+              
+              <Grid container direction="row" justify="flex-start" alignItems="center">
+                <Avatar src={avatarBase64} style={{ height: '20px', width: '20px' }}/>
+                <Link to={`/user/${userGitHandler}`} className={styles.name}>{userName || userGitHandler}</Link>
+              </Grid>
               {/* <a href={`https://www.github.com/${userGitHandler}`} target="_blank" className={styles.gitHandler}>
                 <i className={classnames('fa fa-github-alt', styles.gitIcon)}></i>
                 <span>{userGitHandler}</span>
@@ -93,6 +101,7 @@ Discussion.defaultProps = {
   id: 0,
   userAvatar: PlaceholderImage,
   userName: 'User name',
+  avatarBase64:null,
   userGitHandler: 'github',
   discTitle: 'Default Discussion Title',
   discDate: 'a day ago',
@@ -111,6 +120,7 @@ Discussion.propTypes = {
   id: PropTypes.any,
   userAvatar: PropTypes.string,
   userName: PropTypes.string,
+  avatarBase64: PropTypes.string,
   userGitHandler: PropTypes.string,
   discTitle: PropTypes.string,
   discDate: PropTypes.any,

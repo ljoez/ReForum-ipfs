@@ -14,6 +14,8 @@ import PlaceholderImage from 'SharedStyles/placeholder.jpg';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+
+
 function LinkTab(props) {
   return (
     <Tab
@@ -76,7 +78,7 @@ class Header extends Component {
       authenticated,
       name,
       username,
-      avatarUrl,
+      avatarBase64,
     } = this.props.user;
 
     return (
@@ -87,7 +89,7 @@ class Header extends Component {
             signedIn={authenticated}
             userName={name || username}
             gitHandler={username}
-            avatar={avatarUrl}
+            avatarBase64={avatarBase64}
           />
         </div>
         

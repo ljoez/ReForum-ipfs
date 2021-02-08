@@ -300,10 +300,27 @@ const getFullProfile = (username) => {
   });
 };
 
+const updateAvatar = (username,avatarImg) => {
+  return new Promise((resolve, reject) => {
+
+    User.update({'username':username}, {'avatarBase64':avatarImg}, function(err, res){
+      if (err) {
+        reject(err);
+          console.log("Error:" + err);
+      }
+      else {
+        resolve(res);
+          console.log("Res:" + res);
+      }
+  })
+
+  });
+};
 module.exports = {
   signInViaGithub,
   getUser,
   getFullProfile,
   signInViaLocal,
-  findUser
+  findUser,
+  updateAvatar
 };
