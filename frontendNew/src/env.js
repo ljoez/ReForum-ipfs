@@ -1,4 +1,4 @@
 
 export default {
-    url:'http://localhost:8080'    
+    url:'http://testwx.ouhaibank.com:8080'    
 }

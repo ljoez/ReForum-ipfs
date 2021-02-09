@@ -21,19 +21,20 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
 
 // import { Form, Icon, Input, Button as AntButton, Checkbox } from 'antd';
 
 import { getForums, updateCurrentForum, getUser, getNetworkStatus } from '../../../App/actions';
-import FileInputComponent from  'react-file-input-previews-base64';
 import ReactFileReader from 'react-file-reader';
-
 
 class UserMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeSubMenu: false, subMenuStatus: 'signUp', username: '', password: '', anchorEl: null,snackbarOpen:false };
+    this.state = { activeSubMenu: false, subMenuStatus: 'signUp', username: '', password: '', anchorEl: null,snackbarOpen:false,alterOpen:false,alterContent:'' };
     this.toggleSubMenu = this.toggleSubMenu.bind(this);
     this.toggleSignUpMenu = this.toggleSignUpMenu.bind(this);
     this.userNameHandleChange = this.userNameHandleChange.bind(this);
@@ -44,6 +45,7 @@ class UserMenu extends Component {
     this.gotoProfile = this.gotoProfile.bind(this);
     this.snackbarClose = this.snackbarClose.bind(this);
     this.submitAvatar = this.submitAvatar.bind(this);
+    this.alterClose = this.alterClose.bind(this);
   }
   snackbarClose(){
     this.snackbarClose = false;
@@ -55,7 +57,7 @@ class UserMenu extends Component {
     updateAvatar({avatarImg: files.base64}).then(
       data => {
         if (data.data.error != null) {    
-          enqueueSnackbar('This is a success message!', 'error');
+          that.setState({ alterOpen: true,alterContent:"Upload Error" });
         } else {
           store.dispatch(getUser());
         }
@@ -100,7 +102,8 @@ class UserMenu extends Component {
     signIn({ username: this.state.username, password: this.state.password }).then(
       data => {
         if (data.data.error != null) {    
-          enqueueSnackbar('This is a success message!', 'error');
+          that.setState({ alterOpen: true,alterContent:"Incorrect Username Or Password" });
+          // enqueueSnackbar('This is a success message!', 'error');
 
         } else {
           storage.set('token', data.data);
@@ -122,6 +125,14 @@ class UserMenu extends Component {
       gitHandler,
     } = this.props;
     hashHistory.push(`/user/${gitHandler}`);
+  }
+  alterClose(event, reason){
+    const { alterOpen } = this.state;
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ alterOpen: false });
+
   }
   renderSubMenu() {
     const { activeSubMenu, subMenuStatus,
@@ -228,6 +239,7 @@ class UserMenu extends Component {
       avatarBase64,
       signOutAction,
     } = this.props;
+    const { alterOpen,alterContent } = this.state;
 
     if (signedIn) {
       return (
@@ -239,6 +251,7 @@ class UserMenu extends Component {
             <span className={styles.title}>{userName}</span>
           </div>
           {this.renderSubMenu()}
+          
         </div>
       );
     }
@@ -266,6 +279,24 @@ class UserMenu extends Component {
         </CustomButton> */}
 
         {this.renderSubMenu()}
+
+        <Snackbar open={alterOpen} autoHideDuration={6000} onClose={this.alterClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          message=""
+          action={
+            <React.Fragment>
+              <Typography variant="subtitle2" color="secondary" >
+                 {alterContent}
+              </Typography>
+              <IconButton size="small" aria-label="close" color="inherit" onClick={this.alterClose}>
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </React.Fragment>
+          }
+        />
       </div>
     );
   }
